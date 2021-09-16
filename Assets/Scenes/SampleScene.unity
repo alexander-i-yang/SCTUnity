@@ -265,7 +265,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &540381877 stripped
 GameObject:
@@ -302,11 +302,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 540381877}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e082823b7e830de48b0cc19b5e13ffe6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fa1f55319f7488fa3d1f269ccf3aef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isJumpable: 1
-  isWallJumpable: 1
 --- !u!1 &786363794
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +319,7 @@ GameObject:
   - component: {fileID: 786363798}
   - component: {fileID: 786363799}
   - component: {fileID: 786363800}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Chara
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,8 +334,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786363794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21, y: -50, z: -0.5}
-  m_LocalScale: {x: 7.97, y: 12, z: 1}
+  m_LocalPosition: {x: 46, y: -41, z: -0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1179310904}
   m_Father: {fileID: 0}
@@ -360,14 +358,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 10, y: 12}
+    newSize: {x: 8, y: 12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 8, y: 11.999996}
   m_EdgeRadius: 0
 --- !u!50 &786363797
 Rigidbody2D:
@@ -402,8 +400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87292fb27183e91469f8cbf19f80959f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isJumpable: 1
-  isWallJumpable: 1
 --- !u!212 &786363799
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -444,12 +440,12 @@ SpriteRenderer:
   m_SortingLayerID: -649320215
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.35323864, g: 0.8679245, b: 0.30704877, a: 1}
+  m_Sprite: {fileID: 5638259562752074330, guid: d81a4e1fe51abc343b506208e13c70cd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 8, y: 12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -740,6 +736,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 5968339727364306847, guid: f6cbb549afb01a84e88e7a8b9a11c066, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662372990263243059, guid: f6cbb549afb01a84e88e7a8b9a11c066, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: -2695619058785784247, guid: f6cbb549afb01a84e88e7a8b9a11c066, type: 3}
 --- !u!1 &1179310903
@@ -752,7 +756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1179310904}
   - component: {fileID: 1179310905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerSpotlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -946,7 +950,7 @@ Transform:
   m_Children:
   - {fileID: 32999044}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1658607721
 MonoBehaviour:
@@ -972,5 +976,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85fca032c61747eb9ab01664b43c91f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isJumpable: 1
-  isWallJumpable: 1

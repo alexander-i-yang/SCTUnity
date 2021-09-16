@@ -28,6 +28,11 @@ public class PlayerController : MovablePhysObj {
         Hitbox = GetComponent<BoxCollider2D>();
     }
 
+    public override bool OnCollide(StaticPhysObj collideWith, Vector2 direction) {
+        print("Player collided with: " + collideWith.transform + "direction: " + direction);
+        return true;
+    }
+
     void Update() {
         if (!_inputJump) _inputJump = CheckInputJump();
         
@@ -37,7 +42,6 @@ public class PlayerController : MovablePhysObj {
     }
 
     new void FixedUpdate() {
-        base.FixedUpdate();
         if (_inputJump) {
             _curJjp = MAXJjp;
             _inputJump = false;
@@ -62,9 +66,7 @@ public class PlayerController : MovablePhysObj {
 
         float inputH = CheckInputH();
         MoveH(inputH);
-
-        // TouchingObjsLeft(LayerMask.GetMask("Ground"));
-        // DistanceToLayerLeft(0.02f, LayerMask.GetMask("Ground"));
+        base.FixedUpdate();
     }
 
     /*protected RaycastHit2D DistanceToLayerLeft(float distanceToCheck, LayerMask layerMask) {
@@ -90,14 +92,15 @@ public class PlayerController : MovablePhysObj {
 
     void MoveH(float move) {
         if (move != 0) {
-            MyRb.velocity = new Vector2(xSpeed*move, MyRb.velocity.y);
+            TotalVelocity = new Vector2(xSpeed*move, TotalVelocity.y);
         } else {
-            MyRb.velocity = new Vector2(0, MyRb.velocity.y);
+            TotalVelocity = new Vector2(0, TotalVelocity.y);
         }
+        print("MoveH: " + TotalVelocity);
     }
     
     void Jump() {
         _curCoyoteTime = 0;
-        MyRb.velocity = new Vector2(MyRb.velocity.x, jumpVelocity);
+        TotalVelocity = new Vector2(TotalVelocity.x, jumpVelocity);
     }
 }

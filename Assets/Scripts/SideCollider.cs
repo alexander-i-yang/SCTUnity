@@ -30,10 +30,9 @@ public class SideCollider : MonoBehaviour {
     }
 
     public bool IsGrounded() {
-        foreach(RaycastHit2D r in TouchingBottomObjs(LayerMask.GetMask("World"))) {
+        foreach(RaycastHit2D r in TouchingBottomObjs(LayerMask.GetMask("WorldStatic", "WorldMovable"))) {
             if (r.collider) {
-                PhysObj p = r.transform.GetComponent<PhysObj>();
-                if (p && p.isJumpable) return true;
+                return true;
             }
         }
         return false;
