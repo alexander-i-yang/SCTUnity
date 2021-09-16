@@ -33,10 +33,8 @@ public abstract class MovablePhysObj : StaticPhysObj
         if (!MyCollider) {
             throw new Exception("Forget to add a box collider on " + gameObject + "?");
         }
-    }
 
-    private float clampScalarPos(double curPos, float v) {
-        return (float) (v > 0 ? Math.Floor(curPos) : Math.Ceiling(curPos));
+        Debug.Break();
     }
 
     protected void FixedUpdate() {
@@ -45,7 +43,7 @@ public abstract class MovablePhysObj : StaticPhysObj
             Fall();
         }
         else {
-            TotalVelocity = new Vector2(TotalVelocity.x, 0);
+            TotalVelocity = new Vector2(TotalVelocity.x, Math.Max(TotalVelocity.y, 0));
         }
 
         Move();
@@ -157,7 +155,8 @@ public abstract class MovablePhysObj : StaticPhysObj
     abstract public bool OnCollide(StaticPhysObj collideWith, Vector2 direction);
 
     private int MoveOneAxis(Vector2 velocity) {
-        int magnitude = (int) (velocity.x != 0 ? velocity.x : velocity.y);
+        //Round to avoid precision errors when typecasting to int
+        int magnitude = (int) Math.Round(velocity.x != 0 ? velocity.x : velocity.y);
         Vector2 direction = new Vector2(Math.Sign(velocity.x), Math.Sign(velocity.y));
         int ret = 0;
         if (velocity.y == 0) {
@@ -165,6 +164,15 @@ public abstract class MovablePhysObj : StaticPhysObj
             // print("M1A Dir: " + direction);
             // print("M1A Mag: " + magnitude);
         }
+
+        /*if (velocity == Vector2.right && magnitude == 0) {
+            print("no x needed");
+            print("v: " + velocity);
+            print(direction);
+            print(velocity.x != 0);
+            print(Util.FloatCeiling(velocity.x));
+            print("mag: " + (int) (velocity.x != 0 ? velocity.x : velocity.y));
+        }*/
 
         while (magnitude != 0) {
             // Debug.Break();
@@ -187,6 +195,9 @@ public abstract class MovablePhysObj : StaticPhysObj
             }
             ret += Math.Sign(magnitude);
             magnitude -= Math.Sign(magnitude);
+            if (direction.y == 0) {
+                print($"End of loop {ret}");
+            }
         }
         return ret;
     }
@@ -194,25 +205,14 @@ public abstract class MovablePhysObj : StaticPhysObj
     private void Move() {
         Vector2 curPos = MyRb.transform.position;
         // Store newpos as doubles to avoid precision errors
-        double newPosX = (double)curPos.x + (double)TotalVelocity.x * (double)Time.fixedDeltaTime;
-        double newPosY = (double)curPos.y + (double)TotalVelocity.y * (double)Time.fixedDeltaTime;
-        Vector2 newClampedPos = new Vector2(
-            clampScalarPos(newPosX, TotalVelocity.x), 
-            clampScalarPos(newPosY, TotalVelocity.y));
+        Vector2 newPos = curPos + TotalVelocity * Time.fixedDeltaTime;
+        Vector2 newClampedPos = Util.ClampScalarPos(newPos, TotalVelocity);
         Vector2 clampedVelocity = newClampedPos - curPos;
         //return (float) (v > 0 ? Math.Floor(curPos) : Math.Ceiling(curPos));
-        print("TV: " + TotalVelocity);
-        print("CP: " + curPos);
-        print("NP: " + newPosX + ", " + newPosY);
-        print("NCP: " + newClampedPos);
-        print("CV: " + clampedVelocity);
         int xMove = MoveOneAxis(new Vector2(clampedVelocity.x, 0));
         int yMove = MoveOneAxis(new Vector2(0, clampedVelocity.y));
         clampedVelocity = new Vector2(xMove, yMove);
+        print("AV: " + clampedVelocity);
         MyRb.velocity = clampedVelocity/Time.fixedDeltaTime;
-        print(newPosX);
-        print(Math.Ceiling(newPosX));
-        print(new Vector2((float) Math.Ceiling(newPosX), 0));
-        // Debug.Break();
     }
 }

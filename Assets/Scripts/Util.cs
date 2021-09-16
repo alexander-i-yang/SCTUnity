@@ -26,23 +26,58 @@ public struct MyCollisionData {
 public class Util {
     public const float PrecisionEpsilon = 0.0001f;
     
-    public double FloatCeiling(float f) {
-        return Math.Ceiling(f - PrecisionEpsilon);
-        
+    /// <summary>
+    /// Returns Ceiling for imprecise floats - ie C(20.001)=20.
+    /// </summary>
+    /// <param name="f"></param>
+    /// <returns></returns>
+    public static double FloatCeiling(float f) {
+        double mathCeiling = Math.Ceiling(f);
+        double preciseCeiling = Math.Ceiling(f - PrecisionEpsilon);
+        if (preciseCeiling < mathCeiling) return preciseCeiling;
+        else return mathCeiling;
+        //  a       r   m
+        //  20.01   20  21 *
+        //  20.5    21  21
+        //  20.99   21  21
+        // -20.01  -20 -20
+        // -20.5   -20 -20
+        // -20.99  -21 -20 *
     }
-
-    public double FloatFloor(float f) {
+    
+    /// <summary>
+    /// Returns Ceiling for imprecise floats - ie C(20.001)=20.
+    /// </summary>
+    /// <param name="f"></param>
+    /// <returns></returns>
+    public static double FloatFloor(float f) {
         double mathFloor = Math.Floor(f);
         double preciseFloor = Math.Floor(f + PrecisionEpsilon);
         if (preciseFloor > mathFloor) return preciseFloor;
         else return mathFloor;
-        return Math.Floor(f - PrecisionEpsilon);
         //  a       r   m
-        //  20.01   20  20
+        //  20.01   19  20
         //  20.5    20  20
-        //  20.99   21  20
-        // -20.01  -20 -21
+        //  20.99   21  20 *
+        // -20.01  -20 -21 *
         // -20.5   -21 -21
         // -20.99  -21 -21
+    }
+    
+    /// <summary>
+    /// Snaps the current position to the nearest pixel based on velocity.
+    /// </summary>
+    /// <param name="curPos"></param>
+    /// <param name="velocity"></param>
+    /// <returns></returns>
+    public static float ClampScalarPos(float curPos, float velocity) {
+        return (float) (velocity > 0 ? FloatFloor(curPos) : FloatCeiling(curPos));
+    }
+
+    public static Vector2 ClampScalarPos(Vector2 curPos, Vector2 velocity) {
+        return new Vector2(
+            Util.ClampScalarPos(curPos.x, velocity.x), 
+            Util.ClampScalarPos(curPos.y, velocity.y)
+        );
     }
 }
