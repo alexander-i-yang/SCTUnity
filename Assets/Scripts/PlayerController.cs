@@ -95,7 +95,6 @@ public class PlayerController : MovablePhysObj {
         } else {
             TotalVelocity = new Vector2(0, TotalVelocity.y);
         }
-        print("MoveH: " + TotalVelocity);
     }
     
     void Jump() {

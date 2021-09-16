@@ -22,6 +22,8 @@ public abstract class MovablePhysObj : StaticPhysObj
     public BoxCollider2D MyCollider { get; private set; }
     [NonSerialized] public Vector2 TotalVelocity = new Vector2();
 
+    private bool _shouldDebug = false;
+    
     protected new void Start() {
         base.Start();
         IsMovable = true;
@@ -33,8 +35,6 @@ public abstract class MovablePhysObj : StaticPhysObj
         if (!MyCollider) {
             throw new Exception("Forget to add a box collider on " + gameObject + "?");
         }
-
-        Debug.Break();
     }
 
     protected void FixedUpdate() {
@@ -47,10 +47,6 @@ public abstract class MovablePhysObj : StaticPhysObj
         }
 
         Move();
-        // MyRb.MovePosition(clampedNewPos);
-
-        // CheckGeneralCollisions(Vector2.down);
-        // Debug.Break();
     }
 
     public void Fall() {
@@ -175,7 +171,6 @@ public abstract class MovablePhysObj : StaticPhysObj
         }*/
 
         while (magnitude != 0) {
-            // Debug.Break();
             MyCollisionData collisionData = CheckGeneralCollisions(direction);
             if (direction.y != 0) {
                 // print("CollisionData: " + collisionData.ToString());
@@ -193,8 +188,10 @@ public abstract class MovablePhysObj : StaticPhysObj
             foreach (MovablePhysObj actor in collisionData.RideActors) {
                 actor.MoveOneAxis(direction);
             }
+            
             ret += Math.Sign(magnitude);
             magnitude -= Math.Sign(magnitude);
+            MyRb.MovePosition(MyRb.position+direction);
             if (direction.y == 0) {
                 print($"End of loop {ret}");
             }
@@ -212,7 +209,14 @@ public abstract class MovablePhysObj : StaticPhysObj
         int xMove = MoveOneAxis(new Vector2(clampedVelocity.x, 0));
         int yMove = MoveOneAxis(new Vector2(0, clampedVelocity.y));
         clampedVelocity = new Vector2(xMove, yMove);
-        print("AV: " + clampedVelocity);
-        MyRb.velocity = clampedVelocity/Time.fixedDeltaTime;
+        if (_shouldDebug) {
+            print($"PV: {newClampedPos-curPos}");
+            print($"AV: {clampedVelocity}");
+            Debug.Break();
+        }
+        else {
+            if (clampedVelocity.y > 0) _shouldDebug = true;
+        }
+        // MyRb.velocity = clampedVelocity/Time.fixedDeltaTime;
     }
 }
