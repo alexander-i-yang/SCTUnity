@@ -305,6 +305,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa1f55319f7488fa3d1f269ccf3aef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &540381885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540381877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8131a426d8147c79e07d8853e2367b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - Ground
 --- !u!1 &786363794
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +348,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786363794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46, y: -41, z: -0.5}
+  m_LocalPosition: {x: 39, y: -22, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1179310904}
@@ -400,6 +414,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87292fb27183e91469f8cbf19f80959f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravityTransitionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.49853516
+      value: 0.501194
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  gravityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!212 &786363799
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -830,11 +892,11 @@ GameObject:
   - component: {fileID: 1658607719}
   - component: {fileID: 1658607718}
   - component: {fileID: 1658607717}
-  - component: {fileID: 1658607722}
   - component: {fileID: 1658607721}
+  - component: {fileID: 1658607722}
   m_Layer: 6
   m_Name: Box
-  m_TagString: Interactable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -973,6 +1035,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1658607716}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85fca032c61747eb9ab01664b43c91f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 796127c1a50a44f0a1d6798c9c60eb46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
