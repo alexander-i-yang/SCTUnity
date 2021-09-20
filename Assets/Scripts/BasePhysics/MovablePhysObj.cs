@@ -199,6 +199,7 @@ public abstract class MovablePhysObj : StaticPhysObj
             }
             futureOffset += direction;
         }
+        print(ret + " " + futureOffset);
         return (int) (ret+(futureOffset.x == 0 ? futureOffset.y : futureOffset.x));
     }
 
@@ -212,9 +213,7 @@ public abstract class MovablePhysObj : StaticPhysObj
         int yMove = MoveOneAxis(new Vector2(0, clampedVelocity.y), Vector2.zero);
         int xMove = MoveOneAxis(new Vector2(clampedVelocity.x, 0), Vector2.zero);
         clampedVelocity = new Vector2(xMove, yMove);
-        MyRb.MovePosition(curPos+clampedVelocity);
-        
-        
+        MyRb.MovePosition(curPos + clampedVelocity);
 
         if (_shouldDebug && TotalVelocity.x != 0) {
             print($"PV: {newClampedPos-curPos}");
